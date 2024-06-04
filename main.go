@@ -54,5 +54,5 @@ func main() {
 		fmt.Fprint(w, value)
 
 	})
-	http.ListenAndServe("0.0.0.0:8000", nil)
+	http.ListenAndServe(":8000", nil)
 }
