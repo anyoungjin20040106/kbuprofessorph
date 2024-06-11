@@ -9,18 +9,18 @@ import (
 )
 
 func ReadJson(filename string) (map[string]interface{}, error) {
-	file, err := os.Open(filename)
+	file, err := os.Open(filename) //파일을 연다
 	if err != nil {
 		return nil, err
 	}
-	defer file.Close()
-	content, err := ioutil.ReadAll(file)
+	defer file.Close()                   //프로그램이 끝나면 파일을 닫는다
+	content, err := ioutil.ReadAll(file) //파일 내용을 읽는다
 	if err != nil {
 		return nil, err
 	}
 
-	var info map[string]interface{}
-	err = json.Unmarshal(content, &info)
+	var info map[string]interface{}      //info라는 map을 만든다
+	err = json.Unmarshal(content, &info) //json내용을 map으로 저장한다
 	if err != nil {
 		return nil, err
 	}
@@ -32,10 +32,6 @@ func main() {
 		switch r.Method {
 		case "POST":
 			name = r.PostFormValue("name")
-			fmt.Println("POST name:", name)
-		case "GET":
-			name = r.URL.Query().Get("name")
-			fmt.Println("GET name:", name)
 		default:
 			http.Error(w, "접근 불가 메서드", http.StatusMethodNotAllowed)
 			return
